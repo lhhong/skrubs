@@ -1,2 +1,2 @@
-def square(input):
+def evaluate(input):
     return input * input

@@ -14,7 +14,7 @@ def evaluate(c):
     inputValue = data.get("input")
 
     try:
-        result = getattr(getattr(challenge, c), c)(inputValue)
+        result = getattr(challenge, c).evaluate(inputValue)
     except AttributeError:
         return jsonify({})
 

@@ -1,2 +1,2 @@
-def addOne(inputValue):
+def evaluate(inputValue):
     return inputValue + 1
