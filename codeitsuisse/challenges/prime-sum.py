@@ -5,7 +5,7 @@ def evaluate(inputValue):
     def isPrime(n):
         return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
 
-    #inputValue = inputValue["input"]
+    inputValue = inputValue["input"]
     if isPrime(inputValue):
         return [inputValue]
 
