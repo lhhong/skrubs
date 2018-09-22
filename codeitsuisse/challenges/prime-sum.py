@@ -1,6 +1,9 @@
 import math
 from itertools import count, islice
 import sys
+import re
+import numpy
+from itertools import compress
 sys.setrecursionlimit(2000)
 
 def evaluate(data):
@@ -8,10 +11,8 @@ def evaluate(data):
     targetSum = data["input"]
     print(targetSum)
 
-    def isPrime(n):
-        return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
-
-
+    # def isPrime(n):
+    #     return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
     #print ("inputValue = ", inputValue)
 
     def generate_primes(n):
@@ -26,57 +27,82 @@ def evaluate(data):
                 primes.append(possiblePrime)
         return primes
 
+    def isprime(n):
+        return re.compile(r'^1?$|^(11+)\1+$').match('1' * n) is None
+
+    def generatePrimesFrom2(n):
+        """ Returns a list of primes < n for n > 2 """
+        sieve = bytearray([True]) * (n//2+1)
+        for i in range(1,int(n**0.5)//2+1):
+            if sieve[i]:
+                sieve[2*i*(i+1)::2*i+1] = bytearray((n//2-2*i*(i+1))//(2*i+1)+1)
+        return [2, *compress(range(3,n,2), sieve[1:])]
+
+
     #primes.append(1)
-    primes = generate_primes(targetSum)
-    print(primes)
-    dp_table = {}
-    if isPrime(targetSum):
-        return [targetSum]
+    answer = []
+    primes = generatePrimesFrom2(targetSum)
 
+    if targetSum%2 == 1:
+        answer.append(3)
+        targetSum = targetSum -3
+        primes = primes[2:]
+    #print(primes)
+    for prime in primes:
+        test = targetSum - prime
+        if test in primes:
+            answer.append(test)
+            answer.append(primes)
+            return answer
 
-    # primes = sorted(primes, reverse = True)
-    # tempPrimes = primes[:]
-    # discarded = []
-    # included = []
-    # currVal = inputValue
-    # n = 0
-    # i = 0
-
-    def sumPrimes(index, target):
-        #print(index, primes[index], target)
-
-        if (index, target) in dp_table:
-            return dp_table[(index, target)]
-
-        if target == 0:
-            dp_table[(index, target)] = []
-            return dp_table[(index, target)]
-
-        if index < 0 or target < 0:
-            dp_table[(index, target)] = False
-            return dp_table[(index, target)]
-
-        include = sumPrimes(index - 1, target - primes[index])
-        #print("include", include)
-        if include!=False:
-            #print(index, primes[index], target)
-            include.append(primes[index])
-            dp_table[(index, target)] = include
-            #print(dp_table[(index, target)])
-            return dp_table[(index, target)]
-        else:
-            exclude = sumPrimes(index - 1, target)
-            #print("exclude", exclude)
-            if exclude!=False:
-                #print(index, primes[index], target)
-                dp_table[(index, target)] = dp_table[(index - 1, target)]
-                #print(index, target, dp_table[(index, target)])
-                return dp_table[(index, target)]
-
-        dp_table[(index, target)] = False
-        return dp_table[(index, target)]
-
-    return(sumPrimes(len(primes)-1, targetSum))
+    # dp_table = {}
+    # if isPrime(targetSum):
+    #     return [targetSum]
+    #
+    #
+    # # primes = sorted(primes, reverse = True)
+    # # tempPrimes = primes[:]
+    # # discarded = []
+    # # included = []
+    # # currVal = inputValue
+    # # n = 0
+    # # i = 0
+    #
+    # def sumPrimes(index, target):
+    #     #print(index, primes[index], target)
+    #
+    #     if (index, target) in dp_table:
+    #         return dp_table[(index, target)]
+    #
+    #     if target == 0:
+    #         dp_table[(index, target)] = []
+    #         return dp_table[(index, target)]
+    #
+    #     if index < 0 or target < 0:
+    #         dp_table[(index, target)] = False
+    #         return dp_table[(index, target)]
+    #
+    #     include = sumPrimes(index - 1, target - primes[index])
+    #     #print("include", include)
+    #     if include!=False:
+    #         #print(index, primes[index], target)
+    #         include.append(primes[index])
+    #         dp_table[(index, target)] = include
+    #         #print(dp_table[(index, target)])
+    #         return dp_table[(index, target)]
+    #     else:
+    #         exclude = sumPrimes(index - 1, target)
+    #         #print("exclude", exclude)
+    #         if exclude!=False:
+    #             #print(index, primes[index], target)
+    #             dp_table[(index, target)] = dp_table[(index - 1, target)]
+    #             #print(index, target, dp_table[(index, target)])
+    #             return dp_table[(index, target)]
+    #
+    #     dp_table[(index, target)] = False
+    #     return dp_table[(index, target)]
+    #
+    # return(sumPrimes(len(primes)-1, targetSum))
 
     # def sumOfPrimes (n, listOfPrimes, included):
     #     if n == 0:
@@ -170,5 +196,5 @@ def evaluate(data):
 
 
 tests = [
-{ "input": 20000 }
+{ "input": 219099 }
 ]
