@@ -1,5 +1,6 @@
 import exifread
-import urllib
+import requests
+from io import BytesIO
 
 def evaluate(data):
     result = []
@@ -8,8 +9,8 @@ def evaluate(data):
         lat = None
         lon = None
         image_path = input.get("path")
-        image = open(image_path, 'rb')
-        tags = exifread.process_file(image, details=False)
+        image = requests.get(image_path)
+        tags = exifread.process_file(BytesIO(image.content))
 
         gps_latitude = get_if_exist(tags, 'GPS GPSLatitude')
         gps_latitude_ref = get_if_exist(tags, 'GPS GPSLatitudeRef')
@@ -49,7 +50,7 @@ def convert_to_degress(value):
 
 
 tests = [[
-    {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample1.jpg"},
+    {"path": "https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0029.jpg"},
     {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample2.jpg"},
     {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample3.jpg"},
     {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample4.jpg"},
