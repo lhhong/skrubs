@@ -19,7 +19,8 @@ def evaluate(inputVal):
             reverseGraph[node[1]] = set()
         reverseGraph[node[1]].add(node[0])
 
-    S = []
+    print('allNodes: ', len(allNodes))
+
 
     def dfs(graph, node, visited, fn):
         count = 0
@@ -42,6 +43,7 @@ def evaluate(inputVal):
     #    return visited, 0
 
 
+    S = []
     all_visited = set()
     while len(allNodes) > 0:
 
@@ -52,50 +54,48 @@ def evaluate(inputVal):
         for i in allNodes:
             n = i
             break
-        #all_visited.union(
         dfs(graph, n, all_visited, lambda node: removalAN(node))
 
-    scc = []
-    SS = S[:]
+    #scc = []
+    #SS = S[:]
+    #all_visited = set()
+    #while len(SS) > 0:
+
+    #    scc.append([])
+    #    def removal(s):
+    #        SS.remove(s)
+    #        scc[-1].append(s)
+
+    #    n = SS[-1]
+    #    dfs(reverseGraph, n, all_visited, lambda s: removal(s))
+
+    #SS = [min(x) for x in scc]
+
+    #print(len(SS))
+
     all_visited = set()
-    while len(SS) > 0:
-
-        scc.append([])
-        def removal(s):
-            SS.remove(s)
-            scc[-1].append(s)
-
-        n = SS[-1]
-        dfs(reverseGraph, n, all_visited, lambda s: removal(s))
-
-    SS = [min(x) for x in scc]
-
-    ans = []
-    all_visited = set()
-    all_count = {}
+    all_count = []
     while len(S) > 0:
-        if S[-1] not in SS:
-            S.pop()
-            continue
-        n = S.pop()
-        ans.append(n)
+        #while S[-1] not in SS:
+        #    S.pop()
+
+        n = S[-1]
 
         def removal(s):
-            if s in S:
-                S.remove(s)
+            S.remove(s)
 
         v, count = dfs(graph, n, all_visited, lambda s: removal(s))
-        all_visited.union(v)
-        all_count[n] = count
+        all_count.append((n, count))
+
+    print(sorted(all_count))
 
     maxC = 0
     maxN = None
-    for k, v in all_count.items():
+    for k, v in all_count:
         if v >= maxC:
             if maxN == None or k < maxN:
                 maxC = v
                 maxN = k
-    print("inputValue: ", inputVal)
 
     return {"result": maxN}
 
@@ -103,6 +103,12 @@ tests = [
     {
         "data" : [ "A->B" , "A->C" , "B->D" , "E->F" ]
     },
+
+
+
+
+
+
 
 
 

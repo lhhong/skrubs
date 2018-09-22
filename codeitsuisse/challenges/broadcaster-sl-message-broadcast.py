@@ -1,5 +1,4 @@
 def evaluate(inputVal):
-    print("inputValue: ", inputVal)
     data = inputVal['data']
     graph = {}
     reverseGraph = {}

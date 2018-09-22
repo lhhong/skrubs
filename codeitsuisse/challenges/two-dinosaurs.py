@@ -1,3 +1,114 @@
+#modulo = 100000123
+#
+#class Node(object):
+#    def __init__(self, start, end):
+#        self.start = start
+#        self.end = end
+#        self.total = 0
+#        self.left = None
+#        self.right = None
+#
+#
+#class NumArray(object):
+#    def __init__(self, nums):
+#        """
+#        initialize your data structure here.
+#        :type nums: List[int]
+#        """
+#        #helper function to create the tree from input array
+#        def createTree(nums, l, r):
+#
+#            #base case
+#            if l > r:
+#                return None
+#
+#            #leaf node
+#            if l == r:
+#                n = Node(l, r)
+#                n.total = nums[l][1]
+#                return n
+#
+#            mid = (l + r) // 2
+#
+#            root = Node(l, r)
+#
+#            #recursively build the Segment tree
+#            root.left = createTree(nums, l, mid)
+#            root.right = createTree(nums, mid+1, r)
+#
+#            #Total stores the sum of all leaves under root
+#            #i.e. those elements lying between (start, end)
+#            root.total = (root.left.total + root.right.total) % modulo
+#
+#        return root
+#
+#    self.root = createTree(nums, 0, len(nums)-1)
+#
+#    def update(self, i, val):
+#        """
+#        :type i: int
+#        :type val: int
+#        :rtype: int
+#        """
+#        #Helper function to update a value
+#        def updateVal(root, i, val):
+#
+#            #Base case. The actual value will be updated in a leaf.
+#            #The total is then propogated upwards
+#            if root.start == root.end:
+#                root.total = val
+#                return val
+#
+#            mid = (root.start + root.end) // 2
+#
+#            #If the index is less than the mid, that leaf must be in the left subtree
+#            if i <= mid:
+#                updateVal(root.left, i, val)
+#
+#            #Otherwise, the right subtree
+#            else:
+#                updateVal(root.right, i, val)
+#
+#            #Propogate the changes after recursive call returns
+#            root.total = (root.left.total + root.right.total) % modulo
+#
+#            return root.total
+#
+#        return updateVal(self.root, i, val)
+#
+#    def sumRange(self, i, j):
+#        """
+#        sum of elements nums[i..j], inclusive.
+#        :type i: int
+#        :type j: int
+#        :rtype: int
+#        """
+#        #Helper function to calculate range sum
+#        def rangeSum(root, i, j):
+#
+#            #If the range exactly matches the root, we already have the sum
+#            if root.start == i and root.end == j:
+#                return root.total
+#
+#            mid = (root.start + root.end) // 2
+#
+#            #If end of the range is less than the mid, the entire interval lies
+#            #in the left subtree
+#            if j <= mid:
+#                return rangeSum(root.left, i, j)
+#
+#            #If start of the interval is greater than mid, the entire inteval lies
+#            #in the right subtree
+#            elif i >= mid + 1:
+#                return rangeSum(root.right, i, j)
+#
+#            #Otherwise, the interval is split. So we calculate the sum recursively,
+#            #by splitting the interval
+#            else:
+#                return (rangeSum(root.left, i, mid) + rangeSum(root.right, mid+1, j)) % modulo
+#
+#        return rangeSum(self.root, i, j)
+
 def evaluate(inputVal):
     print(inputVal)
     A = inputVal["calories_for_each_type_for_raphael"]
@@ -5,67 +116,112 @@ def evaluate(inputVal):
     diff = inputVal["maximum_difference_for_calories"]
     modding = 100000123
 
-    aSum = sum(A)
-    bSum = sum(B)
+    def getPossibleSumsWithCount(arr):
+        #d = {k:1 for k in arr}
+        d = {}
+        d[0] = 1
+        for a in arr:
+            new_d = {}
+            for s in d:
+                #if s == a:
+                #    continue
+                if s+a not in new_d:
+                    new_d[s+a] = 0
+                if s not in new_d:
+                    new_d[s] = 0
+                new_d[s+a] += d[s]
+                new_d[s] += d[s]
+            d = new_d
+        return d
 
-    A_table = {}
-    B_table = {}
+    aPoss = getPossibleSumsWithCount(A)
+    bPoss = getPossibleSumsWithCount(B)
 
-    def srA(h, v):
-        A_table[h] = v
-        return v
+    a = sorted([(k, v) for k, v in aPoss.items()])
+    b = sorted([(k, v) for k, v in bPoss.items()])
 
-    def srB(h, v):
-        B_table[h] = v
-        return v
+    lPtr = -1
+    rPtr = -1
 
-    def findNoCombi(i, d, array, sr, table):
-        h = (i, d)
-        if h in table:
-            return table[h]
+    total = 0
+    pSum = 0
+    for k, v in a:
+        while lPtr < len(b) and (lPtr < 0 or (k - b[lPtr][0]) > diff):
+            if lPtr >= 0:
+                pSum -= b[lPtr][1]
+                pSum %= modding
+            lPtr += 1
+        while rPtr < (len(b) - 1) and (b[rPtr + 1][0] - k) <= diff:
+            rPtr += 1
+            pSum += b[rPtr][1]
+            pSum %= modding
 
-        if i < -1:
-            return sr(h, 0)
+        total += (pSum * v) % modding
+        total %= modding
 
-        if d == 0:
-            return sr(h, 1)
+    return {"result": total}
 
-        if d < 0:
-            return sr(h, 0)
+    #aSum = sum(A)
+    #bSum = sum(B)
 
-        combi = sum([
-            findNoCombi(i-1, d, array, sr, table),
-            findNoCombi(i-1, d-array[i], array, sr, table)
-        ])
-        combi %= modding
+    #A_table = {}
+    #B_table = {}
 
-        return sr(h, combi)
+    #def srA(h, v):
+    #    A_table[h] = v
+    #    return v
 
-    result = 0
-    BB = {}
-    for i in range(bSum+1 + 2 * diff):
-        BB[i-diff] = 0
-        if i <= bSum:
-            BB[i-diff] += findNoCombi(len(B) - 1, i, B, srB, B_table)
-            BB[i-diff] %= modding
-        if i != 0:
-            BB[i-diff] += BB[i-diff-1]
-            BB[i-diff] %= modding
-        if i > 2 * diff:
-            BB[i-diff] -= findNoCombi(len(B) - 1, i-2*diff-1, B, srB, B_table)
-            BB[i-diff] %= modding
+    #def srB(h, v):
+    #    B_table[h] = v
+    #    return v
 
-    for i in range(aSum+1):
-        aRes = findNoCombi(len(A)-1, i, A, srA, A_table)
-        result += aRes * BB[i]
+    #def findNoCombi(i, d, array, sr, table):
+    #    h = (i, d)
+    #    if h in table:
+    #        return table[h]
 
-        #for j in range(i-diff, i+diff + 1):
+    #    if i < -1:
+    #        return sr(h, 0)
 
-        #    abRes = aRes * findNoCombi(len(B)-1, j, B, srB, B_table)
-        #    result += abRes
-        #    result %= modding
+    #    if d == 0:
+    #        return sr(h, 1)
 
-    return {"result": result}
+    #    if d < 0:
+    #        return sr(h, 0)
+
+    #    combi = sum([
+    #        findNoCombi(i-1, d, array, sr, table),
+    #        findNoCombi(i-1, d-array[i], array, sr, table)
+    #    ])
+    #    combi %= modding
+
+    #    return sr(h, combi)
+
+    #result = 0
+    #BB = {}
+    #for i in range(bSum+1 + 2 * diff):
+    #    BB[i-diff] = 0
+    #    if i <= bSum:
+    #        BB[i-diff] += findNoCombi(len(B) - 1, i, B, srB, B_table)
+    #        BB[i-diff] %= modding
+    #    if i != 0:
+    #        BB[i-diff] += BB[i-diff-1]
+    #        BB[i-diff] %= modding
+    #    if i > 2 * diff:
+    #        BB[i-diff] -= findNoCombi(len(B) - 1, i-2*diff-1, B, srB, B_table)
+    #        BB[i-diff] %= modding
+
+    #for i in range(aSum+1):
+    #    aRes = findNoCombi(len(A)-1, i, A, srA, A_table)
+    #    result += aRes * BB[i]
+
+    #    #for j in range(i-diff, i+diff + 1):
+
+    #    #    abRes = aRes * findNoCombi(len(B)-1, j, B, srB, B_table)
+    #    #    result += abRes
+    #    #    result %= modding
+
+    #return {"result": result}
 
 #    dp_table = {}
 #
