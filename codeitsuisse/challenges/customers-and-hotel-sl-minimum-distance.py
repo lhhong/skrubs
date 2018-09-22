@@ -1,4 +1,6 @@
 def evaluate(inputVal):
+
+    print(inputVal)
     inputVal.sort()
     if len(inputVal) < 2:
         return {"answer": 0}
