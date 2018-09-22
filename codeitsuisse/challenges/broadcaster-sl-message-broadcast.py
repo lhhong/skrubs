@@ -1,4 +1,5 @@
 def evaluate(inputVal):
+    print("inputValue: ", inputVal)
     data = inputVal['data']
     graph = {}
     reverseGraph = {}
@@ -53,5 +54,5 @@ tests = [
     {
         "data" : [ "A->B" , "A->C" , "B->D" , "E->F" ]
     },
-    
+
 ]
