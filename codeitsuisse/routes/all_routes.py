@@ -20,3 +20,17 @@ def evaluate(c):
     logging.info("My result :{}".format(result))
     return jsonify(result);
 
+@app.route('/<a>/<b>', methods=['POST'])
+def evaluate2(a,b):
+    c = a + "-sl-" + b
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+
+    try:
+        result = getattr(challenge, c).evaluate(data)
+    except AttributeError:
+        return jsonify({})
+
+    logging.info("My result :{}".format(result))
+    return jsonify(result);
+
