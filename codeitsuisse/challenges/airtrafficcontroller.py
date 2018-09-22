@@ -64,7 +64,7 @@ def evaluate(data):
     for flight in flightsCopy:
         schedule(flight)
 
-    #print({"Flights":answer})
+    print({"Flights":answer})
     return {"Flights":sorted(answer,key = lambda info: (int(info["Time"]), info["PlaneId"]))}
 
 
