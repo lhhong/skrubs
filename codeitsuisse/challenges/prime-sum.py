@@ -33,12 +33,14 @@ def evaluate(inputValue):
 
     while currVal != 0:
         currVal = inputValue
+        currList = []
         print ("tempPrimes = ",  tempPrimes)
         if not tempPrimes:
             return None
         for i in tempPrimes:
             if currVal - i == 0:
                 currList.append(i)
+                print ("currList = ",  currList)
                 return currList
             elif currVal - i > 0:
                 currVal = currVal - i
