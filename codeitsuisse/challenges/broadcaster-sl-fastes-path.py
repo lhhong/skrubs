@@ -80,7 +80,7 @@ def evaluate(inputValue):
         graph.add_node(node[1])
         graph.add_edge(node[0], node[1], int(node[2]))
 
-    print(graph.edges)
+    print(graph)
     sender = inputValue['sender']
     recipient = inputValue['recipient']
     return dijsktra(graph, sender, recipient)
