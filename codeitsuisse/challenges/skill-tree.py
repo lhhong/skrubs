@@ -1,4 +1,5 @@
 def evaluate(inputVal):
+    print(inputVal)
     skills = inputVal['skills']
     boss = inputVal['boss']
 
