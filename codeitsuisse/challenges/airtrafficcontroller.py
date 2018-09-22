@@ -29,11 +29,11 @@ def evaluate(data):
             return False
 
 
-    if runways:
-        for runway in runways:
-            runwaySchedule[runway] = []
-    print("runwaySchedule", runwaySchedule)
-    schedule(data["Flights"][0])
+    # if runways:
+    #     for runway in runways:
+    #         runwaySchedule[runway] = []
+    # print("runwaySchedule", runwaySchedule)
+    # schedule(data["Flights"][0])
 
 
 
