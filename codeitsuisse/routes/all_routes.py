@@ -11,10 +11,9 @@ def evaluate(c):
     print(c)
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    inputValue = data.get("input")
 
     try:
-        result = getattr(challenge, c).evaluate(inputValue)
+        result = getattr(challenge, c).evaluate(data)
     except AttributeError:
         return jsonify({})
 
