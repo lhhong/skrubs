@@ -20,6 +20,7 @@ def evaluate(inputValue):
     #
     # dist = set()
     # prev = set()
+    print("HELLO!!!!!!")
     print("inputValue: ", inputValue)
     class Graph:
       def __init__(self):
