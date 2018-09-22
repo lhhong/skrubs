@@ -83,13 +83,14 @@ def evaluate(inputValue):
     print(graph.edges)
     sender = inputValue['sender']
     recipient = inputValue['recipient']
+    return dijsktra(graph, sender, recipient)
 
-    visited = {sender: 0}
-    path = {}
-
-    nodes = set(graph.nodes)
-
-    # while nodes:
+    # visited = {sender: 0}
+    # path = {}
+    #
+    # nodes = set(graph.nodes)
+    #
+    # # while nodes:
     #     min_node = None
     #     for node in nodes:
     #       if node in visited:
@@ -110,7 +111,7 @@ def evaluate(inputValue):
     #         visited[edge] = weight
     #         path[edge] = min_node
     # print(path)
-    return dijsktra(graph, sender, recipient)
+    # return dijsktra(graph, sender, recipient)
 
 
     # visited = {sender: 0}
