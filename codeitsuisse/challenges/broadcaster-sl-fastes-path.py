@@ -20,6 +20,7 @@ def evaluate(inputValue):
     #
     # dist = set()
     # prev = set()
+    print("test: ", inputValue)
     class Graph:
       def __init__(self):
         self.nodes = set()
@@ -80,7 +81,7 @@ def evaluate(inputValue):
         graph.add_node(node[1])
         graph.add_edge(node[0], node[1], int(node[2]))
 
-    print("test: ", inputValue)
+
     sender = inputValue['sender']
     recipient = inputValue['recipient']
     return dijsktra(graph, sender, recipient)
@@ -145,7 +146,7 @@ tests = [
     "recipient" : "C"
 },
 {
-    "data" : [ "A->B,5000" , "A->C,4500" , "B->D,2000" , "B->C,1000", "E->F,4000" ],
+    "data" : [ "A->B,5000" , "A->C,4500" , "B->D,2000" , "B->C,1000", "E->F,4000", "A->E,10", "E->C, 10" ],
     "sender" : "A",
     "recipient" : "C"
 }
