@@ -37,7 +37,7 @@ def evaluate(data):
 
         # print(response.text) #TEXT/HTML
         result = response.json()["convolutional"] #HTTP
-        answer.append(max(result, key=result.get))
+        answer.append(int(max(result, key=result.get)))
     print({"answer":answer})
     return {"answer":answer}
 
