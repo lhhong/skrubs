@@ -38,7 +38,7 @@ def evaluate(inputVal):
                 S.remove(s)
         all_visited.union(dfs(graph, n, all_visited, lambda s: removal(s)))
 
-    return ans
+    return {"result": ans}
 
 tests = [
     {
