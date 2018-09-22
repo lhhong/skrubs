@@ -39,9 +39,11 @@ def evaluate(inputVal):
     while len(S) > 0:
         n = S.pop()
         ans.append(n)
+
         def removal(s):
             if s in S:
                 S.remove(s)
+
         all_visited.union(dfs(graph, n, all_visited, lambda s: removal(s)))
 
     return {"result": sorted(ans)}

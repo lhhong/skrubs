@@ -13,7 +13,7 @@ def evaluate(inputVal):
             if s["offense"] == 0:
                 zeroOffense.append(s)
             return False
-        elif s["require"] in map(lambda s: s['name'], newSkills):
+        elif s["require"] in [a['name'] for a in newSkills]:
             newSkills.append(s)
             return False
         return True
@@ -41,24 +41,20 @@ def evaluate(inputVal):
         if include != -1:
             for poss in include:
                 if newSkills[index]["require"] == None or newSkills[index]["require"] in poss[0]:
-                    if newSkills[index]['name'] in poss[0]:
-                        print(poss[0])
-                        print(newSkills[index]['name'])
-                        print('')
                     ll = poss[0][:]
                     ll.append(newSkills[index]["name"])
                     score = poss[1] + newSkills[index]["points"]
-                    res.append(poss)
+                    res.append([ll, score])
 
         if exclude != -1:
             res = res + exclude
 
-        def near(s, mini):
-            if s[1] > (mini * 1.3) and s[1] > (mini + 10):
-                return False
-            return True
+        #def near(s, mini):
+        #    if s[1] > (mini * 1.3) and s[1] > (mini + 10):
+        #        return False
+        #    return True
 
-        res = [s for s in res if near(s, min(res, key=lambda x: x[1])[1])]
+        #res = [s for s in res if near(s, min(res, key=lambda x: x[1])[1])]
         if len(res) != 0:
             dp_table[(index, target)] = res
             return dp_table[(index, target)]
