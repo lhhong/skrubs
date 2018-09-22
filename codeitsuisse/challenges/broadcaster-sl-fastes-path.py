@@ -20,7 +20,7 @@ def evaluate(inputValue):
     #
     # dist = set()
     # prev = set()
-    print("test: ", inputValue)
+    print("inputValue: ", inputValue)
     class Graph:
       def __init__(self):
         self.nodes = set()
