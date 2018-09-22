@@ -108,6 +108,7 @@
 #                return (rangeSum(root.left, i, mid) + rangeSum(root.right, mid+1, j)) % modulo
 #
 #        return rangeSum(self.root, i, j)
+from collections import defaultdict
 
 def evaluate(inputVal):
     print(inputVal)
@@ -117,29 +118,33 @@ def evaluate(inputVal):
     modding = 100000123
 
     def getPossibleSumsWithCount(arr):
-        #d = {k:1 for k in arr}
-        d = {}
+        d = defaultdict(int)
         d[0] = 1
         for a in arr:
-            new_d = {}
+            new_d = defaultdict(int)
             for s in d:
-                #if s == a:
-                #    continue
-                if s+a not in new_d:
-                    new_d[s+a] = 0
-                if s not in new_d:
-                    new_d[s] = 0
                 new_d[s+a] += d[s]
                 new_d[s] += d[s]
+                #if s+a not in new_d:
+                #    new_d[s+a] = d[s]
+                #else:
+                #    new_d[s+a] += d[s]
+                #if s not in new_d:
+                #    new_d[s] = d[s]
+                #else:
+                #    new_d[s] += d[s]
             d = new_d
         return d
 
     aPoss = getPossibleSumsWithCount(A)
     bPoss = getPossibleSumsWithCount(B)
 
+    print('enumerated')
+
     a = sorted([(k, v) for k, v in aPoss.items()])
     b = sorted([(k, v) for k, v in bPoss.items()])
 
+    print("sorted")
     lPtr = -1
     rPtr = -1
 
