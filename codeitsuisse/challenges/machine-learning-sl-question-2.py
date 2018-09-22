@@ -2,14 +2,52 @@ import numpy
 import sys, os
 sys.path.append(os.path.abspath('./codeitsuisse/challenges/digitclass'))
 import run_on_image as dc
+import requests
 
 def evaluate(data):
     print(data)
     answer = []
+
     for img in data["question"]:
-        answer.append(int(dc.run_on_image(img)))
+        base_url="http://mnist-demo.herokuapp.com/api/mnist/evaluate"
+
+        payload = img
+        headers = {"Content-Type":"application/json"}
+        response = requests.post(base_url, json=payload)
+        # req = requests.Request('POST',base_url,headers=headers,json=payload)
+        # prepared = req.prepare()
+        #
+        # def pretty_print_POST(req):
+        #     """
+        #     At this point it is completely built and ready
+        #     to be fired; it is "prepared".
+        #
+        #     However pay attention at the formatting used in
+        #     this function because it is programmed to be pretty
+        #     printed and may differ from the actual request.
+        #     """
+        #     print('{}\n{}\n{}\n\n{}'.format(
+        #         '-----------START-----------',
+        #         req.method + ' ' + req.url,
+        #         '\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+        #         req.body,
+        #     ))
+        #
+        # pretty_print_POST(prepared)
+
+        # print(response.text) #TEXT/HTML
+        result = response.json()["convolutional"] #HTTP
+        answer.append(max(result, key=result.get))
     print({"answer":answer})
     return {"answer":answer}
+
+
+    # print(data)
+    # answer = []
+    # for img in data["question"]:
+    #     answer.append(int(dc.run_on_image(img)))
+    # print({"answer":answer})
+    # return {"answer":answer}
 
 tests = [
 {"question":[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65, 198, 224, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 155, 167, 117, 123, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 138, 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 226, 242, 0, 0, 0, 40, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 184, 218, 130, 0, 0, 0, 15, 60, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 119, 247, 179, 0, 0, 0, 0, 247, 252, 205, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 104, 238, 228, 25, 0, 0, 48, 63, 243, 256, 264, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 212, 149, 0, 0, 50, 182, 177, 199, 252, 214, 104, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 152, 164, 23, 20, 67, 135, 201, 28, 45, 203, 239, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 83, 91, 100, 147, 210, 85, 0, 0, 166, 234, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 163, 248, 252, 119, 0, 0, 0, 191, 113, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 147, 252, 201, 13, 0, 0, 0, 56, 78, 72, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 34, 16, 0, 0, 0, 0, 138, 77, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 185, 102, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 140, 135, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 20, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 60, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 65, 0, 0, 0, 0, 34, 142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 145, 35, 0, 0, 0, 0, 104, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 240, 186, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
