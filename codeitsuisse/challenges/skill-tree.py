@@ -65,12 +65,13 @@ def evaluate(inputVal):
 
 
 
+    poss = []
     target = boss["offense"]
-    while True:
-        res = getMinPointSet(len(newSkills) - 1, target)
+    for t in range(target, target*2):
+        res = getMinPointSet(len(newSkills) - 1, t)
         if res != -1:
-            return min(res, key=lambda r: r[1])[0]
-        target += 1
+            poss += res
+    return min(res, key=lambda r: r[1])[0]
 
 tests = [
     {
