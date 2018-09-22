@@ -39,15 +39,12 @@ def evaluate(inputVal):
         exclude = getMinPointSet(index-1, target)
         res = []
         if include != -1:
-            canInclude = False
             for poss in include:
                 if newSkills[index]["require"] == None or newSkills[index]["require"] in poss[0]:
-                    canInclude = True
                     poss[0].append(newSkills[index]["name"])
                     poss[1] += newSkills[index]["points"]
+                    res.append(poss)
 
-            if canInclude:
-                res = res + include
         if exclude != -1:
             res = res + exclude
 
@@ -64,7 +61,6 @@ def evaluate(inputVal):
     target = boss["offense"]
     while True:
         res = getMinPointSet(len(newSkills) - 1, target)
-        print(res)
         if res != -1:
             return min(res, key=lambda r: r[1])[0]
         target += 1
