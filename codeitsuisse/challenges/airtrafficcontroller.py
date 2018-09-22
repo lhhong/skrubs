@@ -52,7 +52,7 @@ def evaluate(data):
     if "Runways" in data["Static"]:
         runways = data["Static"]["Runways"]
     if runways:
-        for runway in reversed(runways):
+        for runway in sorted(runways):
             runwaySchedule[runway] = [ None for y in range( 1440 )]
     else:
         runwaySchedule["default"] = [ None for y in range( 1440 )]
