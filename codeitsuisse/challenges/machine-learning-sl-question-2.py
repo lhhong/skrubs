@@ -7,7 +7,7 @@ def evaluate(data):
     print(data)
     answer = []
     for img in data["question"]:
-        answer.append(dc.run_on_image(data["question"][0]))
+        answer.append(int(dc.run_on_image(data["question"][0])))
     return {"answer":answer}
 
 tests = [
