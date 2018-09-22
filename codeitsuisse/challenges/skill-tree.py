@@ -71,7 +71,7 @@ def evaluate(inputVal):
         res = getMinPointSet(len(newSkills) - 1, t)
         if res != -1:
             poss += res
-    return min(res, key=lambda r: r[1])[0]
+    return min(poss, key=lambda r: r[1])[0]
 
 tests = [
     {
