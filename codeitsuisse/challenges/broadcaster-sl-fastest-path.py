@@ -58,11 +58,14 @@ def evaluate(inputValue):
 
     graph = Graph()
     data = inputValue['data']
+    i = 0
     for d in data:
+        print("count: ", i)
         node = re.split('->|,', d)
         graph.add_node(node[0])
         graph.add_node(node[1])
         graph.add_edge(node[0], node[1], int(node[2]))
+        i+=1
 
 
     sender = inputValue['sender']
