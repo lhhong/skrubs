@@ -7,6 +7,7 @@ def evaluate(data):
         tags = exifread.process_file(f)
         results.append(tags)
     return results
+    #
 
 tests = [
     {path: "/images/sample1.jpg"},
