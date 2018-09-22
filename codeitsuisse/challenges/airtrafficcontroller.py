@@ -22,6 +22,7 @@ def evaluate(data):
         bestRunway = "default"
         timeToSchedule = 1440
         for runway, schedule in runwaySchedule.items():
+            print(runway)
             start = timeIndex
             count = 0
             while (count < reserveTime and start < 1440):
@@ -63,8 +64,8 @@ def evaluate(data):
     for flight in flightsCopy:
         schedule(flight)
 
-    print({"Flights":answer})
-    return {"Flights":answer}
+    # print({"Flights":answer})
+    return {"Flights":sorted(answer,key = lambda info: (int(info["Time"]), info["PlaneId"]))}
 
 
 tests = [
