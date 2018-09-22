@@ -1,18 +1,19 @@
 import math
 from itertools import count, islice
 
-def evaluate(inputValue):
+def evaluate(data):
     #inputValue = inputValue["input"]
+    targetSum = data["input"]
+
     def isPrime(n):
         return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
-    if isPrime(inputValue):
-        return [inputValue]
+
 
     #print ("inputValue = ", inputValue)
 
     def generate_primes(n):
         primes = []
-        for possiblePrime in range(2, inputValue):
+        for possiblePrime in range(2, targetSum):
             # Assume number is prime until shown it is not.
             is_Prime = True
             for num in range(2, possiblePrime):
@@ -23,40 +24,81 @@ def evaluate(inputValue):
         return primes
 
     #primes.append(1)
+    primes = generate_primes(targetSum)
+    print(primes)
+    dp_table = {}
+    if isPrime(targetSum):
+        return [targetSum]
 
-    primes = generate_primes(inputValue)
+
     # primes = sorted(primes, reverse = True)
-    tempPrimes = primes[:]
-    discarded = []
-    included = []
-    currVal = inputValue
-    n = 0
-    i = 0
+    # tempPrimes = primes[:]
+    # discarded = []
+    # included = []
+    # currVal = inputValue
+    # n = 0
+    # i = 0
 
-    def sumOfPrimes (n, listOfPrimes, included):
-        if n == 0:
-            return True
-        if n < 0 or len(listOfPrimes) == 0:
-            return False
-        if n - listOfPrimes[-1] >= 0:
-            included.append(listOfPrimes[-1])
-        return sumOfPrimes(n - listOfPrimes[-1], listOfPrimes[:-1], included) or sumOfPrimes(n, listOfPrimes[:-1], included)
+    def sumPrimes(index, target):
+        #print(index, primes[index], target)
 
-        # currVal = n - listOfPrimes[0]
-        # if currVal == 0:
-        #     goodPrimes.append(listOfPrimes[0])
-        #     return goodPrimes
-        # elif n > 0:
-        #     print ("n > 0")
-        #     currVal = n - listOfPrimes[0]
-        #     goodPrimes.append(listOfPrimes[0])
-        #     print(goodPrimes)
-        #     return sum_of_primes(currVal, goodPrimes)
+        if (index, target) in dp_table:
+            return dp_table[(index, target)]
 
+        if target == 0:
+            dp_table[(index, target)] = []
+            return dp_table[(index, target)]
 
-    sumOfPrimes(inputValue, primes, included)
+        if index < 0 or target < 0:
+            dp_table[(index, target)] = False
+            return dp_table[(index, target)]
 
-    return included
+        include = sumPrimes(index - 1, target - primes[index])
+        #print("include", include)
+        if include!=False:
+            #print(index, primes[index], target)
+            include.append(primes[index])
+            dp_table[(index, target)] = include
+            #print(dp_table[(index, target)])
+            return dp_table[(index, target)]
+        else:
+            exclude = sumPrimes(index - 1, target)
+            #print("exclude", exclude)
+            if exclude!=False:
+                #print(index, primes[index], target)
+                dp_table[(index, target)] = dp_table[(index - 1, target)]
+                #print(index, target, dp_table[(index, target)])
+                return dp_table[(index, target)]
+
+        dp_table[(index, target)] = False
+        return dp_table[(index, target)]
+
+    return(sumPrimes(len(primes)-1, targetSum))
+
+    # def sumOfPrimes (n, listOfPrimes, included):
+    #     if n == 0:
+    #         return True
+    #     if n < 0 or len(listOfPrimes) == 0:
+    #         return False
+    #     if n - listOfPrimes[-1] >= 0:
+    #         included.append(listOfPrimes[-1])
+    #     return sumOfPrimes(n - listOfPrimes[-1], listOfPrimes[:-1], included) or sumOfPrimes(n, listOfPrimes[:-1], included)
+    #
+    #     # currVal = n - listOfPrimes[0]
+    #     # if currVal == 0:
+    #     #     goodPrimes.append(listOfPrimes[0])
+    #     #     return goodPrimes
+    #     # elif n > 0:
+    #     #     print ("n > 0")
+    #     #     currVal = n - listOfPrimes[0]
+    #     #     goodPrimes.append(listOfPrimes[0])
+    #     #     print(goodPrimes)
+    #     #     return sum_of_primes(currVal, goodPrimes)
+    #
+    #
+    # sumOfPrimes(inputValue, primes, included)
+    #
+    # return included
 
 
 
@@ -125,6 +167,12 @@ def evaluate(inputValue):
 
 
 tests = [
-    100
-
+{ "input": 19 },
+{ "input": 25 },
+{ "input": 111 },
+{ "input": 24 },
+{ "input": 57 },
+{ "input": 48 },
+{ "input": 121 },
+{ "input": 56 }
 ]
