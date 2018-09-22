@@ -1,9 +1,12 @@
 import math
 from itertools import count, islice
+import sys
+sys.setrecursionlimit(2000)
 
 def evaluate(data):
     #inputValue = inputValue["input"]
     targetSum = data["input"]
+    print(targetSum)
 
     def isPrime(n):
         return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
@@ -167,12 +170,5 @@ def evaluate(data):
 
 
 tests = [
-{ "input": 19 },
-{ "input": 25 },
-{ "input": 111 },
-{ "input": 24 },
-{ "input": 57 },
-{ "input": 48 },
-{ "input": 121 },
-{ "input": 56 }
+{ "input": 20000 }
 ]
