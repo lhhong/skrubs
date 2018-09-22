@@ -48,6 +48,12 @@ def evaluate(inputVal):
         if exclude != -1:
             res = res + exclude
 
+        def near(s, mini):
+            if s > mini * 1.3 and s > mini + 10:
+                return False
+            return True
+
+        res = [s for s in res if near(s, min(res, lambda x: x[1]))]
         if len(res) != 0:
             dp_table[(index, target)] = res
             return dp_table[(index, target)]
