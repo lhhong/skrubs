@@ -114,6 +114,7 @@ class NN(object):
 
 
 		logits = h2_relu.dot(self.weights[-1]) + self.biases[-1]
+		# print(logits)
 		probs = self.softmax(logits)
 		if labels is not None:
 			loss = self.loss(labels,probs)

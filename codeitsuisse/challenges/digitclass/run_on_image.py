@@ -4,7 +4,6 @@ from nn import *
 
 
 def run_on_image(img):
-
 	net = NN(mode='test',model_path="./codeitsuisse/challenges/digitclass/model_bn/")
 	#
 	# img = cv2.imread(img_path)
@@ -14,7 +13,6 @@ def run_on_image(img):
 	img = np.array(img).reshape(1,784)
 	cache = net.forward(img)
 	probs = cache[-2]
-
 	label = np.argmax(probs,axis=1)
 
 	print("Predicted Label {}".format(label[0]))
