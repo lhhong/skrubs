@@ -1,5 +1,7 @@
 import numpy
-import digitclass.run_on_image as dc
+import sys, os
+sys.path.append(os.path.abspath('./codeitsuisse/challenges/digitclass'))
+import run_on_image as dc
 
 def evaluate(data):
     print(data)

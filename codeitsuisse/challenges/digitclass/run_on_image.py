@@ -1,6 +1,6 @@
 import sys
 import os
-from digitclass.nn import *
+from nn import *
 
 
 def run_on_image(img):

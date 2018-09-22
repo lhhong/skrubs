@@ -1,7 +1,7 @@
 import sys
 import os
 import numpy as np
-from digitclass.dataloader import *
+from dataloader import *
 
 class NN(object):
 
