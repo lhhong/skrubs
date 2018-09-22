@@ -2,24 +2,7 @@ import re
 from collections import defaultdict
 
 def evaluate(inputValue):
-    # data = inputValue['data']
-    # graph = {}
-    # distances = {}
-    # allNodes = set()
-    # for d in data:
-    #     node = re.split('->|,', d)
-    #     allNodes.add(node[0])
-    #     allNodes.add(node[1])
-    #     if node[0] not in graph:
-    #         graph[node[0]] = {}
-    #     if node[1] not in graph:
-    #         graph[node[1]] = {}
-    #     graph[node[0]][node[1]] = node[2]
-    # sender = inputValue['sender']
-    # recipient = inputValue['recipient']
-    #
-    # dist = set()
-    # prev = set()
+
     class Graph:
       def __init__(self):
 
@@ -85,8 +68,8 @@ def evaluate(inputValue):
     sender = inputValue['sender']
     recipient = inputValue['recipient']
     answer = dijsktra(graph, sender, recipient)
-    print("answer: ", answer)
-    return answer
+    print("input graph: ", inputValues)
+    return {'result':answer}
 
 tests = [
 {
