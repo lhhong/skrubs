@@ -85,8 +85,9 @@ def evaluate(inputValue):
     sender = inputValue['sender']
     recipient = inputValue['recipient']
     answer = dijsktra(graph, sender, recipient)
+    print("graph: ", graph)
     print("answer: ", answer)
-    return answer
+    return {'result':answer}
 
 tests = [
 {
