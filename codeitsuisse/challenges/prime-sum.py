@@ -51,7 +51,6 @@ def evaluate(inputValue):
             if n - i > 0:
                 return sum_of_primes(n - listOfPrimes)
             if n - i == 0:
-
         return sum_of_primes(n - listOfPrimes)
 
 

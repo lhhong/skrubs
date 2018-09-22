@@ -138,8 +138,10 @@ def evaluate(inputValue):
     # S = []
     # return
 
-tests = [{
+tests = [
+{
     "data" : [ "A->B,1000" , "A->C,4500" , "B->D,2000" , "B->C,1000", "E->F,4000" ],
     "sender" : "A",
     "recipient" : "C"
-}]
+}
+]
