@@ -84,6 +84,7 @@ def evaluate(inputVal):
             if maxN == None or k < maxN:
                 maxC = v
                 maxN = k
+    print("inputValue: ", inputValue)
 
     return {"result": maxN}
 
@@ -92,5 +93,3 @@ tests = [
         "data" : [ "A->B" , "A->C" , "B->D" , "E->F" ]
     }
 ]
-
-

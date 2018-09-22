@@ -58,7 +58,7 @@ def evaluate(inputValue):
 
     graph = Graph()
     data = inputValue['data']
-    print(len(data))
+    # print(len(data))
     for d in data:
         node = re.split('->|,', d)
         graph.add_node(node[0])
