@@ -46,11 +46,12 @@ def evaluate(inputVal):
 
         all_visited.union(dfs(graph, n, all_visited, lambda s: removal(s)))
 
+
     return {"result": sorted(ans)}
 
 tests = [
     {
         "data" : [ "A->B" , "A->C" , "B->D" , "E->F" ]
-    }
+    },
+    
 ]
-
