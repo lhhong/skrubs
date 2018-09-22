@@ -16,34 +16,34 @@ def evaluate(inputVal):
 
     S = []
 
-    def dfs(graph, start, visited, fn):
-        visited.add(start)
-        for n in graph[start] - visited:
-            dfs(graph, n, visited, fn)
-        fn(start)
+    def dfs(graph, node, visited, fn):
+        if node not in visited:
+            visited.add(node)
+            for n in graph[node]:
+                dfs(graph,n, visited, fn)
+            fn(node)
         return visited
-
 
     all_visited = set()
     while len(allNodes) > 0:
 
         def removalAN(s):
-            if s in allNodes:
-                allNodes.remove(s)
+            allNodes.remove(s)
             S.append(s)
 
-        n = allNodes.pop()
-        all_visited.union(dfs(graph, n, all_visited, lambda start: removalAN(start)))
+        for i in allNodes:
+            n = i
+            break
+        dfs(graph, n, all_visited, lambda start: removalAN(start))
 
     ans = []
     all_visited = set()
     while len(S) > 0:
-        n = S.pop()
+        n = S[-1]
         ans.append(n)
 
         def removal(s):
-            if s in S:
-                S.remove(s)
+            S.remove(s)
 
         all_visited.union(dfs(graph, n, all_visited, lambda s: removal(s)))
 
