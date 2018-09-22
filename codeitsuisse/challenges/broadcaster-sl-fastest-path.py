@@ -20,21 +20,23 @@ def evaluate(inputValue):
     #
     # dist = set()
     # prev = set()
+    print("HELLO!!!!!!")
     print("inputValue: ", inputValue)
     class Graph:
       def __init__(self):
-        self.nodes = set()
-        self.edges = defaultdict(list)
-        self.weights = {}
+
+          self.nodes = set()
+          self.edges = defaultdict(list)
+          self.weights = {}
 
       def add_node(self, value):
-        self.nodes.add(value)
+          self.nodes.add(value)
 
       def add_edge(self, from_node, to_node, weight):
 
-        self.edges[from_node].append(to_node)
-        # self.edges[to_node].append(from_node)
-        self.weights[(from_node, to_node)] = weight
+          self.edges[from_node].append(to_node)
+          # self.edges[to_node].append(from_node)
+          self.weights[(from_node, to_node)] = weight
 
     def dijsktra(graph, initial, end):
     # shortest paths is a dict of nodes
@@ -84,6 +86,7 @@ def evaluate(inputValue):
 
     sender = inputValue['sender']
     recipient = inputValue['recipient']
+    
     return dijsktra(graph, sender, recipient)
 
     # visited = {sender: 0}
