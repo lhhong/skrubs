@@ -86,6 +86,7 @@ def evaluate(inputValue):
 
     sender = inputValue['sender']
     recipient = inputValue['recipient']
+    
     return dijsktra(graph, sender, recipient)
 
     # visited = {sender: 0}
