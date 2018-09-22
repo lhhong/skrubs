@@ -21,18 +21,18 @@ def evaluate(inputValue):
 
     #primes.append(1)
     primes = sorted(primes, reverse = True)
-    if not primes:
-        print ("list is empty")
+    # if not primes:
+    #     print ("list is empty")
     tempPrimes = primes[:]
-    if not tempPrimes:
-        print ("list is empty")
+    # if not tempPrimes:
+    #     print ("list is empty")
     currVal = inputValue
     currList = []
     n = 0
 
     while currVal != 0:
         currVal = inputValue
-        print ("tempPrimes = ",  tempPrimes)
+        #print ("tempPrimes = ",  tempPrimes)
         if not tempPrimes:
             return None
         for i in tempPrimes:
