@@ -1,5 +1,4 @@
 def evaluate(inputVal):
-    print(inputVal)
     data = inputVal['data']
     graph = {}
     reverseGraph = {}
@@ -25,9 +24,15 @@ def evaluate(inputVal):
 
 
     all_visited = set()
-    for n in allNodes:
-        if n not in all_visited:
-            all_visited.union(dfs(graph, n, all_visited, lambda start: S.append(start)))
+    while len(allNodes) > 0:
+
+        def removalAN(s):
+            if s in allNodes:
+                allNodes.remove(s)
+            S.append(s)
+
+        n = allNodes.pop()
+        all_visited.union(dfs(graph, n, all_visited, lambda start: removalAN(start)))
 
     ans = []
     all_visited = set()
