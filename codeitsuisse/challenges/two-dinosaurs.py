@@ -1,8 +1,14 @@
 def evaluate(inputVal):
+    print(inputVal)
     A = inputVal["calories_for_each_type_for_raphael"]
     B = inputVal["calories_for_each_type_for_leonardo"]
     diff = inputVal["maximum_difference_for_calories"]
     modding = 100000123
+
+    minmin = min(min(A), min(B))
+
+    A = [a - minmin for a in A]
+    B = [b - minmin for b in B]
 
     aSum = sum(A)
     bSum = sum(B)
