@@ -15,6 +15,7 @@ def evaluate(data):
     def getbestRunway(timeIndex):
         bestRunway = "default"
         timeToSchedule = 1440
+        # print("checking", runwaySchedule.keys())
         for runway, schedule in runwaySchedule.items():
             start = timeIndex
             count = 0
@@ -25,6 +26,7 @@ def evaluate(data):
                 else:
                     count += 1
             if start < timeToSchedule:
+                # print("new best", runway, timeToSchedule)
                 timeToSchedule = start
                 bestRunway = runway
         return bestRunway, timeToSchedule
@@ -50,7 +52,7 @@ def evaluate(data):
     if "Runways" in data["Static"]:
         runways = data["Static"]["Runways"]
     if runways:
-        for runway in runways:
+        for runway in reversed(runways):
             runwaySchedule[runway] = [ None for y in range( 1440 )]
     else:
         runwaySchedule["default"] = [ None for y in range( 1440 )]
@@ -64,8 +66,8 @@ def evaluate(data):
     for flight in flightsCopy:
         schedule(flight)
 
-    print({"Flights":answer})
-    return {"Flights":sorted(answer,key = lambda info: (int(info["Time"]), info["PlaneId"]))}
+    print({"Flights":sorted(answer,key = lambda info: (getTimeIndexFromFlight(info), info["PlaneId"]))})
+    return {"Flights":sorted(answer,key = lambda info: (getTimeIndexFromFlight(info), info["PlaneId"]))}
 
 
 tests = [
@@ -153,5 +155,6 @@ tests = [
         "ReserveTime": "600"
     }
 },
-{'Flights': [{'PlaneId': 'TR123', 'Time': '0905'}, {'PlaneId': 'SQ255', 'Time': '0920'}, {'PlaneId': 'TH544', 'Time': '0854'}, {'PlaneId': 'BA123', 'Time': '0945'}, {'PlaneId': 'VA521', 'Time': '0925'}, {'PlaneId': 'TG732', 'Time': '0950', 'Distressed': 'true'}, {'PlaneId': 'SC276', 'Time': '0905'}], 'Static': {'Runways': ['A'], 'ReserveTime': '1200'}}
+{'Flights': [{'PlaneId': 'TR123', 'Time': '0905'}, {'PlaneId': 'SQ255', 'Time': '0920'}, {'PlaneId': 'TH544', 'Time': '0854'}, {'PlaneId': 'BA123', 'Time': '0945'}, {'PlaneId': 'VA521', 'Time': '0925'}, {'PlaneId': 'TG732', 'Time': '0950', 'Distressed': 'true'}, {'PlaneId': 'SC276', 'Time': '0905'}], 'Static': {'Runways': ['A'], 'ReserveTime': '1200'}},
+{'Flights': [{'PlaneId': 'SQ255', 'Time': '0925'}, {'PlaneId': 'BA123', 'Time': '0945'}, {'PlaneId': 'TH544', 'Time': '0854'}, {'PlaneId': 'TR123', 'Time': '0912'}, {'PlaneId': 'TG732', 'Time': '0950'}, {'PlaneId': 'VA521', 'Time': '0925'}, {'PlaneId': 'SC276', 'Time': '0905'}], 'Static': {'Runways': ['B', 'A'], 'ReserveTime': '600'}}
 ]
