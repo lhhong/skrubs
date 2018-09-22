@@ -1,8 +1,8 @@
 def evaluate(data):
+    print(data)
     runways = False
     runwaySchedule = {}
     reserveTime = int(int(data["Static"]["ReserveTime"])/60)
-    print(reserveTime)
     flights = sorted(data["Flights"],key = lambda info: int(info["Time"]))
     flightsCopy = flights.copy()
     answer = []
