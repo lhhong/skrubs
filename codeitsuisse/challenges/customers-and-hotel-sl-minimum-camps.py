@@ -8,7 +8,7 @@ def evaluate(inputVal):
     for i in ranges:
         if len(camps) == 0:
             camps.append([i[0], i[1]])
-        if i[0] <= camps[-1][1] and i[0] :
+        if i[0] <= camps[-1][1]:
             camps[-1][0] = i[0]
             if i[1] <= camps[-1][1]:
                 camps[-1][1] = i[1]
