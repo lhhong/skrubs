@@ -1,4 +1,5 @@
 def evaluate(inputVal):
+    print(inputVal)
     data = inputVal['data']
     graph = {}
     reverseGraph = {}
@@ -38,7 +39,7 @@ def evaluate(inputVal):
                 S.remove(s)
         all_visited.union(dfs(graph, n, all_visited, lambda s: removal(s)))
 
-    return {"result": ans}
+    return {"result": sorted(ans)}
 
 tests = [
     {
