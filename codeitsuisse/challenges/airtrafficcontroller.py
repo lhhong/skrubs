@@ -63,7 +63,7 @@ def evaluate(data):
     for flight in flightsCopy:
         schedule(flight)
 
-    print(answer)
+    print({"Flights":answer})
     return {"Flights":answer}
 
 
