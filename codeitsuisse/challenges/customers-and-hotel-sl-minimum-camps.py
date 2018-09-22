@@ -1,6 +1,5 @@
 def evaluate(inputVal):
 
-    print(inputVal)
     ranges = [(x["pos"] - x["distance"], x["pos"] + x["distance"]) for x in inputVal]
     ranges.sort(key=lambda x: x[0])
     camps = []

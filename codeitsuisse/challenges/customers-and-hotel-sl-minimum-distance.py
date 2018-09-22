@@ -3,13 +3,14 @@ def evaluate(inputVal):
     inputVal.sort()
     if len(inputVal) < 2:
         return {"answer": 0}
-    minDiff = abs(inputVal[0] - inputVal[1])
+    minDiff = inputVal[1] - inputVal[0]
     oldV = inputVal[1]
     for i in inputVal[2:]:
-        if abs(oldV - i) < minDiff:
-            minDiff = abs(oldV - i)
+        if i - oldV < minDiff:
+            minDiff = i - oldV
+        oldV = i
 
-    return {"answer": 1109765982694286452769385476}
+    return {"answer": minDiff}
 
 tests = [
     [1,22,53,13,1254,651,12]
