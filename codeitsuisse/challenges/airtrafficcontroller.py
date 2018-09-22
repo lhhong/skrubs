@@ -64,7 +64,7 @@ def evaluate(data):
         schedule(flight)
 
     print(answer)
-    return answer
+    return {"Flights":answer}
 
 
 tests = [
