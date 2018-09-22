@@ -6,7 +6,7 @@ def evaluate(inputValue):
         return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
 
     inputValue = inputValue["input"]
-    print ("inputValue = ", input)
+    #print ("inputValue = ", inputValue)
     if isPrime(inputValue):
         return [inputValue]
 
@@ -33,8 +33,7 @@ def evaluate(inputValue):
 
     while currVal != 0:
         currVal = inputValue
-        currList = []
-        print ("tempPrimes = ",  tempPrimes)
+        #print ("tempPrimes = ",  tempPrimes)
         if not tempPrimes:
             return None
         for i in tempPrimes:
@@ -46,6 +45,7 @@ def evaluate(inputValue):
                 currVal = currVal - i
                 currList.append(i)
         tempPrimes.pop(0)
+        currList = []
 
     # def sum_of_primes(value):
     #     primes = prime_sieve(value)
@@ -62,11 +62,6 @@ def evaluate(inputValue):
     # return
 
 tests = [
-    6,
-    21,
-    100,
-    96,
-    21,
-    15
+    10000
 
 ]
