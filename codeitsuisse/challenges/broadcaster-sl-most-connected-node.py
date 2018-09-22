@@ -84,7 +84,7 @@ def evaluate(inputVal):
             if maxN == None or k < maxN:
                 maxC = v
                 maxN = k
-    print("inputValue: ", inputValue)
+    print("inputValue: ", inputVal)
 
     return {"result": maxN}
 
