@@ -1,4 +1,6 @@
 import exifread
+import urllib
+
 def evaluate(data):
     result = []
 
@@ -47,9 +49,9 @@ def convert_to_degress(value):
 
 
 tests = [[
-    {path: "/images/sample1.jpg"},
-    {path: "/images/sample2.jpg"},
-    {path: "/images/sample3.jpg"},
-    {path: "/images/sample4.jpg"},
-    {path: "/images/sample5.jpg"}
+    {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample1.jpg"},
+    {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample2.jpg"},
+    {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample3.jpg"},
+    {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample4.jpg"},
+    {"path": "https://cis2018-photo-gps.herokuapp.com/images/sample5.jpg"}
 ]]
