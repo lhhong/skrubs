@@ -45,13 +45,13 @@ def evaluate(inputValue):
     # print(primes)
     # return sumOfPrimes(inputValue, primes)
 
-    def sum_of_primes (n, goodPrimes, i):
-        listOfPrimes = sorted(generate_primes(n), reverse = True)
-        for i in listOfPrimes:
-            if n - i > 0:
-                return sum_of_primes(n - listOfPrimes)
-            if n - i == 0:
-        return sum_of_primes(n - listOfPrimes)
+    # def sum_of_primes (n, goodPrimes, i):
+    #     listOfPrimes = sorted(generate_primes(n), reverse = True)
+    #     for i in listOfPrimes:
+    #         if n - i > 0:
+    #             return sum_of_primes(n - listOfPrimes)
+    #         if n - i == 0:
+    #     return sum_of_primes(n - listOfPrimes)
 
 
     while currVal != 0:
