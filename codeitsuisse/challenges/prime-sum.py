@@ -5,7 +5,7 @@ def evaluate(inputValue):
     def isPrime(n):
         return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
 
-    inputValue = inputValue["input"]
+    #inputValue = inputValue["input"]
     if isPrime(inputValue):
         return [inputValue]
 
@@ -19,16 +19,22 @@ def evaluate(inputValue):
         if is_Prime:
             primes.append(possiblePrime)
 
-    primes.append(1)
+    #primes.append(1)
     primes = sorted(primes, reverse = True)
+    if not primes:
+        print "list is empty"
+    tempPrimes = primes[:]
+    if not tempPrimes:
+        print "list is empty"
     currVal = inputValue
     currList = []
     n = 0
 
     while currVal != 0:
         currVal = inputValue
-        tempPrimes = primes[:]
-        del tempPrimes[:n]
+        print "tempPrimes = ",  tempPrimes
+        if not tempPrimes:
+            return None
         for i in tempPrimes:
             if currVal - i == 0:
                 currList.append(i)
@@ -36,7 +42,7 @@ def evaluate(inputValue):
             elif currVal - i > 0:
                 currVal = currVal - i
                 currList.append(i)
-        n += 1
+        tempPrimes.pop(0)
 
     # def sum_of_primes(value):
     #     primes = prime_sieve(value)
@@ -53,7 +59,6 @@ def evaluate(inputValue):
     # return
 
 tests = [
-    1,
     6,
     21,
     100,
