@@ -1,11 +1,5 @@
 def evaluate(data):
     print(data)
-    runways = False
-    runwaySchedule = {}
-    reserveTime = int(int(data["Static"]["ReserveTime"])/60)
-    flights = sorted(data["Flights"],key = lambda info: (int(info["Time"]), info["PlaneId"]))
-    flightsCopy = flights.copy()
-    answer = []
 
     def getTimeIndexFromFlight(flight):
         time = flight["Time"]
@@ -45,6 +39,13 @@ def evaluate(data):
             tempAns["Runway"] = bestRunway
         answer.append(tempAns)
 
+    runways = False
+    runwaySchedule = {}
+    reserveTime = int(int(data["Static"]["ReserveTime"])/60)
+    flights = sorted(data["Flights"],key = lambda info: (getTimeIndexFromFlight(info), info["PlaneId"]))
+    flightsCopy = flights.copy()
+    answer = []
+
 
     if "Runways" in data["Static"]:
         runways = data["Static"]["Runways"]
@@ -63,7 +64,7 @@ def evaluate(data):
     for flight in flightsCopy:
         schedule(flight)
 
-    print({"Flights":answer})
+    #print({"Flights":answer})
     return {"Flights":sorted(answer,key = lambda info: (int(info["Time"]), info["PlaneId"]))}
 
 
@@ -151,5 +152,6 @@ tests = [
         "Runways": ["A"],
         "ReserveTime": "600"
     }
-}
+},
+{'Flights': [{'PlaneId': 'TR123', 'Time': '0905'}, {'PlaneId': 'SQ255', 'Time': '0920'}, {'PlaneId': 'TH544', 'Time': '0854'}, {'PlaneId': 'BA123', 'Time': '0945'}, {'PlaneId': 'VA521', 'Time': '0925'}, {'PlaneId': 'TG732', 'Time': '0950', 'Distressed': 'true'}, {'PlaneId': 'SC276', 'Time': '0905'}], 'Static': {'Runways': ['A'], 'ReserveTime': '1200'}}
 ]
