@@ -57,12 +57,15 @@ def evaluate(inputVal):
         scc.append([])
         all_visited.union(dfs(reverseGraph, n, all_visited, lambda s: removal(s))[0])
 
-    S = [min(x) for x in scc]
+    SS = [min(x) for x in scc]
 
     ans = []
     all_visited = set()
     all_count = {}
     while len(S) > 0:
+        if S[-1] not in SS:
+            S.pop()
+            continue
         n = S.pop()
         ans.append(n)
 
