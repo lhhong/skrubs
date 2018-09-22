@@ -15,20 +15,20 @@ def evaluate(data):
     #     return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
     #print ("inputValue = ", inputValue)
 
-    def generate_primes(n):
-        primes = []
-        for possiblePrime in range(2, targetSum):
-            # Assume number is prime until shown it is not.
-            is_Prime = True
-            for num in range(2, possiblePrime):
-                if possiblePrime % num == 0:
-                    is_Prime = False
-            if is_Prime:
-                primes.append(possiblePrime)
-        return primes
+    # def generate_primes(n):
+    #     primes = []
+    #     for possiblePrime in range(2, targetSum):
+    #         # Assume number is prime until shown it is not.
+    #         is_Prime = True
+    #         for num in range(2, possiblePrime):
+    #             if possiblePrime % num == 0:
+    #                 is_Prime = False
+    #         if is_Prime:
+    #             primes.append(possiblePrime)
+    #     return primes
 
-    def isprime(n):
-        return re.compile(r'^1?$|^(11+)\1+$').match('1' * n) is None
+    # def isprime(n):
+    #     return re.compile(r'^1?$|^(11+)\1+$').match('1' * n) is None
 
     def generatePrimesFrom2(n):
         """ Returns a list of primes < n for n > 2 """
@@ -52,7 +52,7 @@ def evaluate(data):
         test = targetSum - prime
         if test in primes:
             answer.append(test)
-            answer.append(primes)
+            answer.append(prime)
             return answer
 
     # dp_table = {}
@@ -196,5 +196,5 @@ def evaluate(data):
 
 
 tests = [
-{ "input": 219099 }
+{ "input": 791076 }
 ]
