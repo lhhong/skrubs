@@ -6,6 +6,7 @@ def evaluate(inputValue):
         return n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1)))
 
     inputValue = inputValue["input"]
+    print ("inputValue = ", input)
     if isPrime(inputValue):
         return [inputValue]
 
@@ -32,7 +33,7 @@ def evaluate(inputValue):
 
     while currVal != 0:
         currVal = inputValue
-        #print ("tempPrimes = ",  tempPrimes)
+        print ("tempPrimes = ",  tempPrimes)
         if not tempPrimes:
             return None
         for i in tempPrimes:
