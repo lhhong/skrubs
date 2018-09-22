@@ -25,38 +25,86 @@ def evaluate(inputValue):
     #primes.append(1)
 
     primes = generate_primes(inputValue)
-    # primes = sorted(primes, reverse = True)
-    tempPrimes = primes[:]
+    tempPrimes = sorted(primes, reverse = True)
     discarded = []
     included = []
+    primeDict = {}
+    currList = []
+
     currVal = inputValue
     n = 0
     i = 0
 
-    def sumOfPrimes (n, listOfPrimes, included):
+    def sumOfPrimes (n, listOfPrimes):
         if n == 0:
             return True
         if n < 0 or len(listOfPrimes) == 0:
             return False
-        if n - listOfPrimes[-1] >= 0:
-            included.append(listOfPrimes[-1])
-        return sumOfPrimes(n - listOfPrimes[-1], listOfPrimes[:-1], included) or sumOfPrimes(n, listOfPrimes[:-1], included)
+        return sumOfPrimes(n, listOfPrimes[:-1]) or sumOfPrimes(n - listOfPrimes[-1], listOfPrimes[:-1])
 
-        # currVal = n - listOfPrimes[0]
-        # if currVal == 0:
-        #     goodPrimes.append(listOfPrimes[0])
-        #     return goodPrimes
-        # elif n > 0:
-        #     print ("n > 0")
-        #     currVal = n - listOfPrimes[0]
-        #     goodPrimes.append(listOfPrimes[0])
-        #     print(goodPrimes)
-        #     return sum_of_primes(currVal, goodPrimes)
+    # print(primes)
+    # return sumOfPrimes(inputValue, primes)
+
+    def sum_of_primes (n, goodPrimes, i):
+        listOfPrimes = sorted(generate_primes(n), reverse = True)
+        for i in listOfPrimes:
+            if n - i > 0:
+                return sum_of_primes(n - listOfPrimes)
+            if n - i == 0:
+
+        return sum_of_primes(n - listOfPrimes)
 
 
-    sumOfPrimes(inputValue, primes, included)
+    while currVal != 0:
+        currVal = inputValue
+        #print ("tempPrimes = ",  tempPrimes)
+        if not tempPrimes:
+            return None
+        for i in tempPrimes:
+            if currVal - i < 0:
+                continue
+            if currVal - i == 0:
+                currList.append(i)
+                print("primes: ", tempPrimes)
+                print ("currList = ",  currList)
+                return currList
+            elif currVal - i > 0:
+                currVal = currVal - i
+                currList.append(i)
+        tempPrimes.pop(0)
+        currList = []
 
-    return included
+    print("primes: ", primes)
+    return currList
+
+
+
+
+
+
+
+
+
+
+    # print("included: ", included)
+    # # sumOfPrimes(inputValue, primes, included)
+    # if sumOfPrimes(inputValue, primes, included):
+    #     while currVal != 0:
+    #         currVal = inputValue
+    #         #print ("tempPrimes = ",  tempPrimes)
+    #         if not tempPrimes:
+    #             return None
+    #         for i in tempPrimes:
+    #             if currVal - i == 0:
+    #                 currList.append(i)
+    #                 print ("currList = ",  currList)
+    #                 return currList
+    #             elif currVal - i > 0:
+    #                 currVal = currVal - i
+    #                 currList.append(i)
+    #         tempPrimes.pop(0)
+    #         currList = []
+
 
 
 
@@ -125,6 +173,6 @@ def evaluate(inputValue):
 
 
 tests = [
-    100
+    100000
 
 ]
