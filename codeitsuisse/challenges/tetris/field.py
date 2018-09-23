@@ -141,7 +141,22 @@ class Field():
             return 8
         return 0
 
-
+    def bumpiness(self):
+        col = 0
+        diff = []
+        for col in range(self.WIDTH):
+            column = [row[col] for row in self.state]
+            i =0
+            # print(column)
+            while column[i] == ' ' and i < 19:
+                i+=1
+            if col == 0:
+                height = i
+            else:
+                diff.append(abs(i-height))
+                height = i
+                # print(height, column[i])
+        return sum(diff)
 
 def evaluate(seq) :
     import sys

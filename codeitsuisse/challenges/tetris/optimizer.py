@@ -30,7 +30,7 @@ class Optimizer():
                         'tetromino_column': column,
                         'tetromino_row': row,
                         'lines_cleared_points': f.lines_cleared_points(),
-                        'heuristic':  f.lines_cleared_points() - f.height() - 4 * f.count_gaps() + 2 *row
+                        'heuristic':  f.lines_cleared_points() - f.height() - 5 * f.count_gaps() + 2 *row - 1 * f.bumpiness()
                     })
                     # if f.lines_cleared_points()!= 0:
                     #     print(f.lines_cleared_points())
