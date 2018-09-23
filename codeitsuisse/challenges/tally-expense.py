@@ -47,12 +47,12 @@ def evaluate(data):
             if owe[i] != 0:
                 ans.append({"from": persons[i],
                             "to": persons[maxPIndex],
-                            "amount": owe[i]
+                            "amount": round(owe[i], 2)
                             })
             if paid[i] != 0:
                 ans.append({"from": persons[maxPIndex],
                             "to": persons[i],
-                            "amount": paid[i]
+                            "amount": round(paid[i], 2)
                             })
 
     return {"transactions": ans}
