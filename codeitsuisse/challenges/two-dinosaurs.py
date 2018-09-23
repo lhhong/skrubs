@@ -125,14 +125,6 @@ def evaluate(inputVal):
             for s in d:
                 new_d[s+a] += d[s]
                 new_d[s] += d[s]
-                #if s+a not in new_d:
-                #    new_d[s+a] = d[s]
-                #else:
-                #    new_d[s+a] += d[s]
-                #if s not in new_d:
-                #    new_d[s] = d[s]
-                #else:
-                #    new_d[s] += d[s]
             d = new_d
         return d
 
