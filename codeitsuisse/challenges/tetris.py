@@ -5,6 +5,7 @@ import field
 
 def evaluate(inputVal):
     seq = inputVal["tetrominoSequence"]
+    print(seq)
     actions = field.evaluate(seq)
     return {"actions": actions}
 
