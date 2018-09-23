@@ -13,6 +13,7 @@ class Field():
         else:
             self.state = [[' ' for cols in range(Field.WIDTH)]
                           for rows in range(Field.HEIGHT)]
+        self.cleared = 0
 
     def __str__(self):
         BAR = '   ' + '-' * (Field.WIDTH * 2 + 1) + '\n    ' + \
@@ -77,6 +78,13 @@ class Field():
         """
         Checks and removes all filled lines.
         """
+        lines = 0
+        for row in self.state:
+            # if (row.count(' ') == 0):
+            #     print(row, row.count(' '))
+            if row.count(' ') == 0:
+                lines += 1
+        self.cleared = lines
         self.state = list(filter(lambda row: row.count(' ') != 0, self.state))
         while len(self.state) < Field.HEIGHT:
             self.state.insert(0, [' ' for col in range(Field.WIDTH)])
@@ -121,6 +129,19 @@ class Field():
             if ''.join(row).strip():
                 return Field.HEIGHT - i
         return 0
+
+    def lines_cleared_points(self):
+        if self.cleared < 2:
+            return self.cleared
+        if self.cleared == 2:
+            return 3
+        if self.cleared == 3:
+            return 5
+        if self.cleared == 4:
+            return 8
+        return 0
+
+
 
 def evaluate(seq) :
     import sys

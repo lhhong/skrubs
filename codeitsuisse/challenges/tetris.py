@@ -7,7 +7,7 @@ def evaluate(inputVal):
     seq = inputVal["tetrominoSequence"]
     print(seq)
     actions = field.evaluate(seq)
-    print({"actions": actions})
+    print({"actions": actions}, actions.count(0))
     return {"actions": actions}
 
     #

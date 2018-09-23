@@ -28,27 +28,33 @@ class Optimizer():
                         'field_height': f.height(),
                         'tetromino_rotation': rotation,
                         'tetromino_column': column,
-                        'tetromino_row': row
+                        'tetromino_row': row,
+                        'lines_cleared_points': f.lines_cleared_points(),
+                        'heuristic': 5 * f.lines_cleared_points() - 2* f.height() - 3* f.count_gaps() + row
                     })
+                    # if f.lines_cleared_points()!= 0:
+                    #     print(f.lines_cleared_points())
+                    # print(f.lines_cleared_points(), f.height(), f.count_gaps(), row,f.lines_cleared_points() + f.height() + f.count_gaps() - row)
                 except AssertionError:
                     continue
 
-        # First, we pick out all the drops that will produce the least
-        # amount of gaps.
-        lowest_gaps = min([drop['field_gaps'] for drop in drops])
-        drops = list(filter(
-            lambda drop: drop['field_gaps'] == lowest_gaps, drops))
-        # Next we sort for the ones with the lowest field height.
-
-        lowest_height = min([drop['field_height'] for drop in drops])
-        drops = list(filter(
-            lambda drop: drop['field_height'] == lowest_height, drops))
-        # Finally, we sort for the ones that drop the tetromino in the lowest
-        # row. Since rows increase from top to bottom, we use max() instead.
-        lowest_row = max([drop['tetromino_row'] for drop in drops])
-        drops = list(filter(
-            lambda drop: drop['tetromino_row'] == lowest_row, drops))
-        assert len(drops) > 0
+        # # First, we pick out all the drops that will produce the least
+        # # amount of gaps.
+        # lowest_gaps = min([drop['field_gaps'] for drop in drops])
+        # drops = list(filter(
+        #     lambda drop: drop['field_gaps'] == lowest_gaps, drops))
+        # # Next we sort for the ones with the lowest field height.
+        #
+        # lowest_height = min([drop['field_height'] for drop in drops])
+        # drops = list(filter(
+        #     lambda drop: drop['field_height'] == lowest_height, drops))
+        # # Finally, we sort for the ones that drop the tetromino in the lowest
+        # # row. Since rows increase from top to bottom, we use max() instead.
+        # lowest_row = max([drop['tetromino_row'] for drop in drops])
+        # drops = list(filter(
+        #     lambda drop: drop['tetromino_row'] == lowest_row, drops))
+        # assert len(drops) > 0
+        drops.sort(key = lambda x: x["heuristic"], reverse = True)
         return drops[0]
 
     @staticmethod
