@@ -129,11 +129,12 @@ def evaluate(seq) :
     answer = []
     for i in range(len(seq)):
         t = Tetromino.create(seq[i])
-        opt = Optimizer.get_optimal_drop(f, t)
+        try:
+            opt = Optimizer.get_optimal_drop(f, t)
+        except:
+            opt = {"tetromino_rotation":0,"tetromino_column":0}
         t.rotate(opt['tetromino_rotation'])
         f.drop(t, opt['tetromino_column'])
-        print(f)
-        print(opt['tetromino_rotation'],opt['tetromino_column'])
         answer.append(int(str(opt['tetromino_rotation'])+str(opt['tetromino_column'])))
     return answer
         # i = input()

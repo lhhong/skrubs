@@ -35,9 +35,7 @@ class Optimizer():
 
         # First, we pick out all the drops that will produce the least
         # amount of gaps.
-        print(drops)
         lowest_gaps = min([drop['field_gaps'] for drop in drops])
-        print(type(lowest_gaps))
         drops = list(filter(
             lambda drop: drop['field_gaps'] == lowest_gaps, drops))
         # Next we sort for the ones with the lowest field height.
