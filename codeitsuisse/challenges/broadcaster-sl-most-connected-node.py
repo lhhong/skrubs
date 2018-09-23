@@ -1,7 +1,7 @@
 def evaluate(inputVal):
     data = inputVal['data']
     graph = {}
-    reverseGraph = {}
+    #reverseGraph = {}
     allNodes = set()
     for d in data:
         node = d.split('->')
@@ -13,24 +13,53 @@ def evaluate(inputVal):
             graph[node[1]] = set()
         graph[node[0]].add(node[1])
 
-        if node[0] not in reverseGraph:
-            reverseGraph[node[0]] = set()
-        if node[1] not in reverseGraph:
-            reverseGraph[node[1]] = set()
-        reverseGraph[node[1]].add(node[0])
+        #if node[0] not in reverseGraph:
+        #    reverseGraph[node[0]] = set()
+        #if node[1] not in reverseGraph:
+        #    reverseGraph[node[1]] = set()
+        #reverseGraph[node[1]].add(node[0])
 
-    print('allNodes: ', len(allNodes))
+    #print('allNodes: ', len(allNodes))
 
+    #def dfs(graph, node, visited, fn):
+    #    count = 0
+    #    if node not in visited:
+    #        visited[node] = True
+    #        #visited.add(node)
+    #        count = 1
+    #        for n in graph[node]:
+    #            count += dfs(graph,n, visited, fn)
+    #        fn(node)
+    #    return count
 
-    def dfs(graph, node, visited, fn):
-        count = 0
-        if node not in visited:
-            visited.add(node)
-            count = 1
-            for n in graph[node]:
-                count += dfs(graph,n, visited, fn)[1]
-            fn(node)
-        return visited, count
+    def dfs(graph, node, visited):#, fn):
+        visited[node] = True
+        #visited.add(node)
+        count = 1
+        for n in graph[node]:
+            if n not in visited:
+                count += dfs(graph,n, visited)#, fn)
+        #fn(node)
+        return count
+
+    all_count = []
+    for n in allNodes:
+        v = {}
+        count = dfs(graph, n, v)#, fun)
+        all_count.append((-count, n))
+
+    return {"result": min(all_count)[1]}
+
+    maxC = 0
+    maxN = None
+    for k, v in all_count:
+        if v >= maxC:
+            if maxN == None or k < maxN:
+                maxC = v
+                maxN = k
+
+    return {"result": maxN}
+
 
     #def dfs(graph, start, visited, fn):
     #    if start not in all_visited:
@@ -44,7 +73,7 @@ def evaluate(inputVal):
 
 
     S = []
-    all_visited = set()
+    all_visited = {}#set()
     while len(allNodes) > 0:
 
         def removalAN(s):
@@ -73,21 +102,26 @@ def evaluate(inputVal):
 
     #print(len(SS))
 
-    all_visited = set()
     all_count = []
-    while len(S) > 0:
+    t = []
+    while len(S):# > 0:
         #while S[-1] not in SS:
         #    S.pop()
+        all_visited = set()
 
-        n = S[-1]
+        n = S.pop()
+        t.append(n)
 
         def removal(s):
-            S.remove(s)
+            pass
+            #S.remove(s)
 
-        v, count = dfs(graph, n, all_visited, lambda s: removal(s))
+        count = dfs(graph, n, all_visited, lambda s: removal(s))
         all_count.append((n, count))
 
+    print(t)
     print(sorted(all_count))
+    print(sum([c[1] for c in all_count]))
 
     maxC = 0
     maxN = None
