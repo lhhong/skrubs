@@ -38,14 +38,14 @@ def evaluate(inputVal):
         count = 1
         for n in graph[node]:
             if n not in visited:
-                count += dfs(graph,n, visited, fn)
+                count += dfs(graph,n, visited)#, fn)
         #fn(node)
         return count
 
     all_count = []
     for n in allNodes:
         v = {}
-        count = dfs(graph, n, v):#, fun)
+        count = dfs(graph, n, v)#, fun)
         all_count.append((-count, n))
 
     return {"result": min(all_count)[1]}
