@@ -15,7 +15,10 @@ class Tetromino():
     def ITetromino():
         return Tetromino(
             [
-                ['I', 'I', 'I', 'I']
+                ['I'],
+                ['I'],
+                ['I'],
+                ['I']
             ]
         )
 
@@ -59,8 +62,9 @@ class Tetromino():
     def JTetromino():
         return Tetromino(
             [
-                ['J', 'J', 'J'],
-                [' ', ' ', 'J']
+                [' ', 'J'],
+                [' ', 'J'],
+                ['J', 'J']
             ]
         )
 
@@ -68,8 +72,9 @@ class Tetromino():
     def LTetromino():
         return Tetromino(
             [
-                ['L', 'L', 'L'],
-                ['L', ' ', ' ']
+                ['L', ' '],
+                ['L', ' '],
+                ['L', 'L']
             ]
         )
 

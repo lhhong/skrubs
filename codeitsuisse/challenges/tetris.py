@@ -7,6 +7,7 @@ def evaluate(inputVal):
     seq = inputVal["tetrominoSequence"]
     print(seq)
     actions = field.evaluate(seq)
+    print({"actions": actions})
     return {"actions": actions}
 
     #
@@ -144,5 +145,14 @@ tests = [
     },
     {
         "tetrominoSequence": "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    }
+    },
+    {
+        "tetrominoSequence": "ZJTJOTOJOSITZZTOJJOTSZZJSJSOJOZLOOIOTTLSOSJSJLTZZLJTJZOSLOSOTLTOTZZLSLZOSTLILJISLIITOJIJOITOLSSOSSOI"
+    },
+    {
+        "tetrominoSequence": "TTZZTZTSZZZTZZTSZSTSSSZSZZTTZTTZZSTSSTZSSTSTZTSZTSSZZTSTZZSTTTZZTSSSZZZZZSSZSSTTSZZTTSZZZZSTTTTZZZSS"
+    },
+    {
+        "tetrominoSequence": "LLJJLJJLLJJJJLLLLLLLJJJJJJLJJLJLJLLLJJLJJJLJJJLLJLJLJLJLJLLJLJJJLLJLLLJJLLLLJLJLJJJLJLLLJJLLLLLLJLLJ"
+    },
 ]

@@ -129,6 +129,7 @@ def evaluate(seq) :
     answer = []
     for i in range(len(seq)):
         t = Tetromino.create(seq[i])
+        # print(f, t)
         try:
             opt = Optimizer.get_optimal_drop(f, t)
             t.rotate(opt['tetromino_rotation'])
