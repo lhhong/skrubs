@@ -121,11 +121,12 @@ def evaluate(inputVal):
         d = defaultdict(int)
         d[0] = 1
         for a in arr:
-            new_d = defaultdict(int)
-            for s in d:
-                new_d[s+a] += d[s]
-                new_d[s] += d[s]
-            d = new_d
+            #new_d = defaultdict(int)
+            k = sorted([_ for _ in d], reverse=True)
+            for s in k:
+                d[s+a] += d[s]
+                #new_d[s] += d[s]
+            #d = new_d
         return d
 
     aPoss = getPossibleSumsWithCount(A)
